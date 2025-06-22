@@ -1,0 +1,381 @@
+getgenv().Bind = "Insert"
+getgenv().Timings = {
+    ["Layup"] = 0.505,
+    ["LayupH"] = 0.49,
+    ["Close"] = 0.4925,
+    ["CloseH"] = 0.467,
+    ["Dunk"] = 0.54,
+    ["DunkH"] = 0.5,
+    ["Euro"] = 0.48,
+    ["Moving"] = 0.63,
+    ["Standing"] = 0.605,
+    ["HopstepOffDribble"] = 0.575,
+    ["Floater"] = 0.525,
+    ["Hook"] = 0.5125,
+    ["Post"] = 0.645,
+    ["Contact"] = 0.535,
+    ["HalfC"] = 0.56
+}
+
+if getgenv().Loaded ~= true then
+workspace:WaitForChild(game.Players.LocalPlayer.Name)
+
+local func;
+local ids = {}
+local idsfar = {}
+local idscl = {}
+local idslc = {}
+local idsstand = {}
+local idsmove = {}
+local idsl = {}
+local idsf = {}
+local idsp = {}
+local idsdribble = {}
+local idsfl = {}
+local idspump = {}
+local idsdd = {}
+local idsh = {}
+local idse = {}
+getgenv().AntiCrash = false
+getgenv().Auto = true
+getgenv().Pump = false
+getgenv().Dribble = false
+getgenv().Drift = false
+getgenv().Special = false
+getgenv().SpecialL = false
+getgenv().Shooting = false
+getgenv().SpecialL1 = false
+getgenv().Stand = false
+task.spawn(function()
+while task.wait() do
+task.spawn(function()
+if getgenv().Special == false and getgenv().Shooting == false then
+if workspace:FindFirstChild(game.Players.LocalPlayer.Name) ~= nil and workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Humanoid").MoveDirection.Magnitude ~= 1 and getgenv().Dribble == false and getgenv().Drift == false or  getgenv().Pump == true then
+getgenv().Timer = getgenv().Timings["Standing"]
+end
+if workspace:FindFirstChild(game.Players.LocalPlayer.Name) ~= nil and workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Humanoid").MoveDirection.Magnitude ~= 0 and getgenv().SpecialL == false and getgenv().Stand == false and getgenv().Pump == false  or getgenv().Dribble == true and getgenv().Pump == false then
+getgenv().Timer = getgenv().Timings["Moving"]
+elseif workspace:FindFirstChild(game.Players.LocalPlayer.Name) ~= nil and workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Humanoid").MoveDirection.Magnitude ~= 0 and getgenv().SpecialL == true and getgenv().Pump == false then
+getgenv().Timer = getgenv().Timings["HopstepOffDribble"]
+end
+end
+end)
+end
+end)
+
+
+task.spawn(function()
+while task.wait(2) do
+task.spawn(function()
+if workspace:FindFirstChild(game.Players.LocalPlayer.Name) and not workspace:FindFirstChild(game.Players.LocalPlayer.Name):FindFirstChild("Ball.Weld") then
+getgenv().Special = false
+getgenv().SpecialL = false
+getgenv().AntiCrash = false
+getgenv().SpecialL1 = false
+getgenv().Pump = false
+getgenv().Shooting = false
+
+end
+end)
+if workspace:FindFirstChild(game.Players.LocalPlayer.Name) and workspace:FindFirstChild(game.Players.LocalPlayer.Name):FindFirstChild("Humanoid") and workspace:FindFirstChild(game.Players.LocalPlayer.Name).Humanoid:FindFirstChild("Animations") and #idsp == 0 then
+for i,v in pairs(workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Humanoid",9e9).Animations:GetChildren()) do
+	if v:IsA("Animation") and v.Name:lower():match("dunk") and not table.find(ids,v.AnimationId) then
+	table.insert(ids,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("contact") and not table.find(idslc,v.AnimationId) then
+    table.insert(idslc,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("hook") and not table.find(idsp,v.AnimationId) then
+    table.insert(idsp,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("floater") and not table.find(idsfl,v.AnimationId) then
+    table.insert(idsfl,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("close") and not table.find(idscl,v.AnimationId) then
+    table.insert(idscl,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("lay") and not v.Name:lower():match("contact") and not v.Name:lower():match("euro") and not table.find(idsl,v.AnimationId) then
+    table.insert(idsl,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("post") and not table.find(idsf,v.AnimationId) then
+    table.insert(idsf,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("drift") and not table.find(idsdd,v.AnimationId) then
+    table.insert(idsdd,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("eurostep") and not table.find(idse,v.AnimationId) then
+    table.insert(idse,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("hopstep") and not table.find(idsh,v.AnimationId) then
+    table.insert(idsh,v.AnimationId)
+    elseif v:IsA("Animation") and (v.Name:lower():match("cross") or v.Name:lower():match("dive") or v.Name:lower():match("double") or v.Name:lower():match("moving") or v.Name:lower():match("hesi") or v.Name:lower():match("spin") or v.Name:lower():match("stepback") or v.Name:lower():match("under")) and not table.find(idsdribble,v.AnimationId) then
+    table.insert(idsdribble,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("far") and not table.find(idsfar,v.AnimationId) then
+    table.insert(idsfar,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("catch") and not table.find(idsstand,v.AnimationId) then
+    table.insert(idsstand,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("dribble") and not table.find(idsmove,v.AnimationId) then
+    table.insert(idsmove,v.AnimationId)
+    elseif v:IsA("Animation") and v.Name:lower():match("pump") and not table.find(idspump,v.AnimationId) then
+    table.insert(idspump,v.AnimationId)
+	             end
+	         end
+      	end
+    end
+end)
+func = workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Humanoid",9e9).AnimationPlayed:Connect(function(Anim)
+for i,v in pairs(idsdribble) do
+if Anim.Animation.AnimationId == v then
+task.spawn(function()
+getgenv().Dribble = true
+task.wait(2)
+getgenv().Dribble = false
+end)
+    end
+  end
+for i,v in pairs(idspump) do
+if Anim.Animation.AnimationId == v then
+getgenv().Pump = true
+  end
+end
+for i,v in pairs(idsfar) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["HalfC"]
+    end
+  end
+for i,v in pairs(idsstand) do
+if Anim.Animation.AnimationId == v then
+getgenv().Stand = true
+    end
+  end
+for i,v in pairs(idsmove) do
+if Anim.Animation.AnimationId == v then
+getgenv().Stand = false
+    end
+  end
+for i,v in pairs(idsdd) do
+if Anim.Animation.AnimationId == v then
+getgenv().SpecialL = false
+getgenv().Stand = false
+getgenv().Pump = false
+    end
+  end
+for i,v in pairs(idse) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().SpecialL1 = true
+getgenv().Timer = getgenv().Timings["Euro"]
+    end
+  end
+for i,v in pairs(idsh) do
+if Anim.Animation.AnimationId == v then
+getgenv().SpecialL = true
+    end
+  end
+for i,v in pairs(ids) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+if getgenv().SpecialL == false then
+getgenv().Timer = getgenv().Timings["Dunk"]
+else
+getgenv().Timer = getgenv().Timings["DunkH"]
+end
+    end
+  end
+for i,v in pairs(idsp) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Hook"]
+    end
+  end
+for i,v in pairs(idsfl) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Floater"]
+    end
+  end
+for i,v in pairs(idsl) do
+if Anim.Animation.AnimationId == v and getgenv().SpecialL1 == false then
+getgenv().Special = true
+if getgenv().SpecialL == false then
+getgenv().Timer = getgenv().Timings["Layup"]
+else
+getgenv().Timer = getgenv().Timings["LayupH"]
+end
+    end
+  end
+for i,v in pairs(idslc) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Contact"]
+    end
+  end
+for i,v in pairs(idscl) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+if getgenv().SpecialL == false then
+getgenv().Timer = getgenv().Timings["Close"]
+else
+getgenv().Timer = getgenv().Timings["CloseH"]
+end
+    end
+  end
+for i,v in pairs(idsf) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Post"]
+     end
+   end
+ end)
+
+workspace.ChildAdded:Connect(function(b)
+if b.Name == game.Players.LocalPlayer.Name then
+ func:Disconnect()
+ idsp = {}
+ idsfl = {}
+ idsfar = {}
+ ids = {}
+ idscl = {}
+ idslc = {}
+ idsl = {}
+ idsdribble = {}
+ idsf = {}
+ idsstand = {}
+ idsmove = {}
+ idsdd = {}
+ idsh = {}
+ idse = {}
+ idspump = {}
+workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Humanoid",9e9).AnimationPlayed:Connect(function(Anim)
+for i,v in pairs(idsdribble) do
+if Anim.Animation.AnimationId == v then
+task.spawn(function()
+getgenv().Dribble = true
+task.wait(2)
+getgenv().Dribble = false
+end)
+    end
+  end
+for i,v in pairs(idspump) do
+if Anim.Animation.AnimationId == v then
+getgenv().Pump = true
+  end
+end
+for i,v in pairs(idsfar) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["HalfC"]
+    end
+  end
+for i,v in pairs(idsstand) do
+if Anim.Animation.AnimationId == v then
+getgenv().Stand = true
+    end
+  end
+for i,v in pairs(idsmove) do
+if Anim.Animation.AnimationId == v then
+getgenv().Stand = false
+    end
+  end
+for i,v in pairs(idsdd) do
+if Anim.Animation.AnimationId == v then
+getgenv().SpecialL = false
+getgenv().Stand = false
+getgenv().Pump = false
+    end
+  end
+for i,v in pairs(idse) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().SpecialL1 = true
+getgenv().Timer = getgenv().Timings["Euro"]
+    end
+  end
+for i,v in pairs(idsh) do
+if Anim.Animation.AnimationId == v then
+getgenv().SpecialL = true
+    end
+  end
+for i,v in pairs(ids) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+if getgenv().SpecialL == false then
+getgenv().Timer = getgenv().Timings["Dunk"]
+else
+getgenv().Timer = getgenv().Timings["DunkH"]
+end
+    end
+  end
+for i,v in pairs(idsp) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Hook"]
+    end
+  end
+for i,v in pairs(idsfl) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Floater"]
+    end
+  end
+for i,v in pairs(idsl) do
+if Anim.Animation.AnimationId == v and getgenv().SpecialL1 == false then
+getgenv().Special = true
+if getgenv().SpecialL == false then
+getgenv().Timer = getgenv().Timings["Layup"]
+else
+getgenv().Timer = getgenv().Timings["LayupH"]
+end
+    end
+  end
+for i,v in pairs(idslc) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Contact"]
+    end
+  end
+for i,v in pairs(idscl) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+if getgenv().SpecialL == false then
+getgenv().Timer = getgenv().Timings["Close"]
+else
+getgenv().Timer = getgenv().Timings["CloseH"]
+end
+    end
+  end
+for i,v in pairs(idsf) do
+if Anim.Animation.AnimationId == v then
+getgenv().Special = true
+getgenv().Timer = getgenv().Timings["Post"]
+      end
+    end
+   end)
+  end
+ end)
+
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+if input.UserInputType == Enum.UserInputType.MouseButton1 and not gameProcessed and workspace:FindFirstChild(game.Players.LocalPlayer.Name) ~= nil and workspace:FindFirstChild(game.Players.LocalPlayer.Name):FindFirstChild("Ball.Weld") then
+game:GetService('VirtualInputManager'):SendKeyEvent(true, "E", false, game)
+game:GetService('VirtualInputManager'):SendKeyEvent(true, "E", false, game)
+end
+end)
+game:GetService("RunService").RenderStepped:Connect(function()
+if workspace:FindFirstChild(game.Players.LocalPlayer.Name) ~= nil and workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Properties"):WaitForChild("ShotMeter").Value < 2 and workspace:FindFirstChild(game.Players.LocalPlayer.Name):WaitForChild("Properties"):WaitForChild("ShotMeter").Value > 0 and getgenv().Auto == true and getgenv().AntiCrash == false then
+getgenv().AntiCrash = true
+getgenv().Shooting = true
+task.wait(getgenv().Timer - (game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue() * 0.001))
+game:GetService('VirtualInputManager'):SendKeyEvent(false, "E", false, game)
+task.wait(2)
+getgenv().Special = false
+getgenv().SpecialL = false
+getgenv().SpecialL1 = false
+getgenv().Shooting = false
+getgenv().AntiCrash = false
+       end
+end)
+
+
+game:GetService("UserInputService").InputBegan:Connect(function(i,g)
+if i.KeyCode == Enum.KeyCode[getgenv().Bind] and not g and getgenv().Auto == true then
+getgenv().Auto = false
+elseif i.KeyCode == Enum.KeyCode[getgenv().Bind] and not g and getgenv().Auto == false then
+getgenv().Auto = true
+end
+end)
+
+
+getgenv().Loaded = true
+end
