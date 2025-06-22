@@ -1,0 +1,2 @@
+_G.Slot = "2"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/whyitgottabeme/2025music/refs/heads/main/ye.Lua",true))()
