@@ -1,0 +1,70 @@
+local TARGET_PLACE_ID = 85959597177250
+
+if game.PlaceId == TARGET_PLACE_ID then
+    task.wait(10)  -- wait 10 seconds before starting deletion
+
+    local map = workspace:FindFirstChild("Map")
+    local crowd = workspace:FindFirstChild("Crowd")
+
+    -- Items under workspace.Map (now including Buildings, Props, RBW5 Text)
+    local mapToDelete = {
+        "Bleachers",
+        "MapLights",
+        "Benches",
+        "Lights",
+        "Nature",
+        "Outside Courts",
+        "San Franscisco",
+        "Bridge",
+        "Buildings",
+        "Props",
+        "RBW5 Text"
+    }
+
+    -- Delete map items
+    if map then
+        for _, name in ipairs(mapToDelete) do
+            local obj = map:FindFirstChild(name)
+            if obj then
+                obj:Destroy()
+            end
+        end
+
+        -- Delete "Golden Gate Bridge" inside Bridge
+        local bridge = map:FindFirstChild("Bridge")
+        if bridge then
+            local goldenGate = bridge:FindFirstChild("Golden Gate Bridge")
+            if goldenGate then
+                goldenGate:Destroy()
+            end
+        end
+
+        -- Delete Net from _Hoop1 and _Hoop2 under Court
+        local court = map:FindFirstChild("Court")
+        if court then
+            local hoop1 = court:FindFirstChild("_Hoop1")
+            local hoop2 = court:FindFirstChild("_Hoop2")
+
+            if hoop1 then
+                local net1 = hoop1:FindFirstChild("Net")
+                if net1 then
+                    net1:Destroy()
+                end
+            end
+
+            if hoop2 then
+                local net2 = hoop2:FindFirstChild("Net")
+                if net2 then
+                    net2:Destroy()
+                end
+            end
+        end
+    end
+
+    -- Delete all children of workspace.Crowd
+    if crowd then
+        for _, child in ipairs(crowd:GetChildren()) do
+            child:Destroy()
+        end
+    end
+end
